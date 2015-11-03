@@ -5,24 +5,24 @@
 
 # Date: Dec 19, 2013
 
-
+#from time import sleep
 from newDataReader import *
 from random import *
 
 # Gets chord data file name, generates array stats. 
 filename = "CGM_chords_all.txt"
-printDataStats(filename)
+##printDataStats(filename)
 diat_data, first_data, diat_total, first_total = getChordArrays(filename)
 
-print()
-print()
-print("TEST ZONE")
-print(diat_data)
-print()
-print(first_data)
-print(diat_total)
-print(first_total)
-print()
+##print()
+##print()
+##print("TEST ZONE")
+##print(diat_data)
+##print()
+##print(first_data)
+##print(diat_total)
+##print(first_total)
+##print()
 
 # Initializes song data structure.
 verse = {"Chords":[], "Melody":[]}
@@ -39,12 +39,12 @@ for sect in song:
         summ = 0
         chordInt = 1
         while summ < rand_perc:
-            print()
-            print("chordInt:" + str(chordInt))
-            print("current chords = " + str(sect["Chords"]))
-            print(first_data)
-            print("SUM " + str(summ))
-            print("rand_perc " + str(rand_perc))
+##            print()
+##            print("chordInt:" + str(chordInt))
+##            print("current chords = " + str(sect["Chords"]))
+##            print(first_data)
+##            print("SUM " + str(summ))
+##            print("rand_perc " + str(rand_perc))
             summ += first_data[chordInt]
             chordInt += 1
         chordInt -= 1
@@ -127,12 +127,9 @@ max_skeleton_jump = 3
 
 for sect in song:
     sect["transMelody"] = []
-    sect["transHarmony"] = []
     for i in range(len(sect["Chords"])):
         sect["Melody"].append([0,0,0,0,0,0,0,0])
-        sect["Harmony"].append([0,0,0,0,0,0,0,0])
         sect["transMelody"].append([0,0,0,0,0,0,0,0])
-        sect["transHarmony"].append([0,0,0,0,0,0,0,0])
 
 
 # Probability of note x being selected (settled on even probability). 
@@ -221,55 +218,60 @@ def convertToLetter(num):
 
 keys = ["C", "G", "Eb", "F", "D"]
 
-
 for sect in song:
     for bar in sect["Melody"]:
+        ##print("BAR")
+        ##print(bar)
         indy = 0
         for note in bar:
             sect["transMelody"][sect["Melody"].index(bar)][indy] = convertToLetter(note)
             indy += 1
-    for bar in sect["Harmony"]:
-        indy = 0
-        for note in bar:
-            sect["transHarmony"][sect["Harmony"].index(bar)][indy] = convertToLetter(note)
-            indy += 1
+            ##print(sect["transMelody"][sect["Melody"].index(bar)])
+            ##print(sect["Melody"].index(bar))
+            ##sleep(0.1)
 
 
 notes = []
 
 
-from pyknonfinalNEW.genmidi import Midi
-from pyknonfinalNEW.music import *
+##from pyknonfinalNEW.genmidi import Midi
+##from pyknonfinalNEW.music import *
 
         
 print()       
 print("Composition #" + str(randrange(10000)) + ":")
-print("Key:", choice(keys), "major")
+print("Key:", "C major (default)") ##choice(keys), "major")
 print()
 print("Verse:", song[0]["Chords"])
 for halfbar in song[0]["transMelody"]:
-    for note in halfbar:
-        if note == "-":
-            notes.append(Rest(dur=1/8))
-        else:
-            thing = note + "5"
-            notes.append(Note(thing,dur=1/8))
-        
     print(halfbar)
+##for halfbar in song[0]["Melody"]:
+##    print(halfbar)
+##    for note in halfbar:
+##        if note == "-":
+##            notes.append(Rest(dur=1/8))
+##        else:
+##            thing = note + "5"
+##            notes.append(Note(thing,dur=1/8))
+        
 print()
 print("Chorus:", song[1]["Chords"])
 for halfbar in song[1]["transMelody"]:
     print(halfbar)
+##for halfbar in song[1]["Melody"]:
+##    print(halfbar)
 print()
 print("Bridge:", song[2]["Chords"])
 for halfbar in song[2]["transMelody"]:
     print(halfbar)
+##for halfbar in song[2]["Melody"]:
+##    print(halfbar)
 
 
-notes1 = NoteSeq(notes)
-print(notes1)
-midi = Midi(1, tempo=90)
-midi.seq_notes(notes1, track=0)
-midi.write("cgmtest.mid")
+##notes1 = NoteSeq(notes)
+##print(notes1)
+##midi = Midi(1, tempo=90)
+##midi.seq_notes(notes1, track=0)
+##midi.write("cgmtest.mid")
 
 
