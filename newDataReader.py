@@ -90,24 +90,24 @@ def getChordArrays(filename):
 def printDataStats(filename):
     d_d, f_d, all_chord_total, first_chord_total = getChordArrays(filename)
 
-    print("Total # of songs processed:", first_chord_total)
+    print("Total songs processed:", first_chord_total)
     print()
-    print("Total # of chords processed:", all_chord_total)
+    print("Total chords processed:", all_chord_total)
     print()
 
-    f_perc_msg = "First-chord percentages:"
+    f_perc_msg = "Modal probability: "
     for i in range(1,8):
-        f_perc_msg += str(f_d[i]) + "% "
+        f_perc_msg += str(round(f_d[i],2)) + "% "
     print(f_perc_msg)
     print()
 
     roman_num_notation = ["", "  I", " ii", "iii", " IV", "  V", " iv", "iiv"]
-    print("Main chord-change percents:   ____I___ii__iii___IV____V___iv___iiv")
+    print("Probability Matrix (Markov chain):   I      ii     iii      IV       V      iv     iiv")
     for i in range(1,8):
         interval = roman_num_notation[i]
         m = "                          " + interval + ":"
         for j in range(1,8):
-            d = str(d_d[i][j])
+            d = str(round(d_d[i][j],2))
             space = (8-len(d))*" "
             m+= space + d
             #if len(d) == 1:
